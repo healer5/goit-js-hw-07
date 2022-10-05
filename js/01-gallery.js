@@ -48,9 +48,19 @@ function onGalleryContainerClick(evt) {
 `);
   instance.show();
 
-  galleryContainer.addEventListener("keydown", (evt) => {
+  // galleryContainer.addEventListener("keydown", (evt) => {
+  //   if (evt.code === "Escape") {
+  //     instance.close();
+  //   }
+  // });
+
+  window.addEventListener("keydown", onEscapeBtn);
+
+  function onEscapeBtn(evt) {
     if (evt.code === "Escape") {
       instance.close();
+      window.removeEventListener("keydown", onEscapeBtn);
     }
-  });
+  }
+  return;
 }
