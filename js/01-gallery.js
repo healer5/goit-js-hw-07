@@ -43,9 +43,17 @@ function onGalleryContainerClick(evt) {
   }
   console.log(evt.target.dataset.source);
 
-  const instance = basicLightbox.create(`
-    <img src=${evt.target.dataset.source} width="800" height="600">
-`);
+  const instance = basicLightbox.create(
+    `    <img src=${evt.target.dataset.source} width="800" height="600">`,
+    {
+      onShow: (instance) => {
+        window.addEventListener("keydown", onEscapeBtn);
+      },
+      onClose: (instance) => {
+        window.removeEventListener("keydown", onEscapeBtn);
+      },
+    }
+  );
   instance.show();
 
   // galleryContainer.addEventListener("keydown", (evt) => {
@@ -54,13 +62,9 @@ function onGalleryContainerClick(evt) {
   //   }
   // });
 
-  window.addEventListener("keydown", onEscapeBtn);
-
   function onEscapeBtn(evt) {
     if (evt.code === "Escape") {
       instance.close();
-      window.removeEventListener("keydown", onEscapeBtn);
     }
   }
-  return;
 }
